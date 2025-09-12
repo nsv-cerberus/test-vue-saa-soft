@@ -197,7 +197,7 @@ onMounted(() => {
 
 .accounts-list {
   background: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid #bababa;
   border-radius: 20px;
   overflow: hidden;
 }
@@ -223,7 +223,7 @@ onMounted(() => {
 
 .account-item {
   padding: 24px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid #bababa;
   position: relative;
 }
 
@@ -261,7 +261,7 @@ onMounted(() => {
 
 .form-control {
   padding: 12px 16px;
-  border: 2px solid #e2e8f0;
+  border: 1px solid #bababa;
   border-radius: 12px;
   font-size: 14px;
   background: white;
