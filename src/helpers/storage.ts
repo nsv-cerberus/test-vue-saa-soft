@@ -1,7 +1,6 @@
 export type StorageType = 'localStorage' | 'sessionStorage' | 'cookies'
 
 export const storage = {
-  // Сохранение данных
   save: (key: string, data: any, type: StorageType = 'localStorage') => {
     const jsonData = JSON.stringify(data)
 
@@ -18,7 +17,6 @@ export const storage = {
     }
   },
 
-  // Загрузка данных
   load: (key: string, type: StorageType = 'localStorage') => {
     let data = null
 
@@ -41,7 +39,6 @@ export const storage = {
     return data ? JSON.parse(data) : null
   },
 
-  // Удаление данных
   remove: (key: string, type: StorageType = 'localStorage') => {
     switch (type) {
       case 'localStorage':
@@ -56,7 +53,6 @@ export const storage = {
     }
   },
 
-  // Очистка всех данных
   clear: (type: StorageType = 'localStorage') => {
     switch (type) {
       case 'localStorage':

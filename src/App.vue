@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import AccountsView from './views/AccountsView.vue'
+import AccountsView from './views/accounts/AccountsView.vue'
 </script>
 
 <style>

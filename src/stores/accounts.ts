@@ -1,5 +1,5 @@
-import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { defineStore } from 'pinia'
 import { storage, type StorageType } from '../helpers/storage'
 
 export interface Tag {
@@ -8,7 +8,7 @@ export interface Tag {
 
 export interface Account {
   id: number
-  metka: Tag[]
+  mark: Tag[]
   type: 'LDAP' | 'Локальная'
   login: string
   password: string | null
@@ -20,11 +20,10 @@ export const useAccountsStore = defineStore('accounts', () => {
   const accounts = ref<Account[]>([])
   const storageType = ref<StorageType>('localStorage')
 
-  // Добавление новой записи
   const addAccount = () => {
     const newAccount: Account = {
       id: Date.now(),
-      metka: [],
+      mark: [],
       type: 'Локальная',
       login: '',
       password: '',
@@ -35,13 +34,11 @@ export const useAccountsStore = defineStore('accounts', () => {
     saveAccounts()
   }
 
-  // Удаление записи
   const removeAccount = (id: number) => {
     accounts.value = accounts.value.filter(account => account.id !== id)
     saveAccounts()
   }
 
-  // Обновление записи
   const updateAccount = (id: number, updatedData: Partial<Account>) => {
     const index = accounts.value.findIndex(account => account.id === id)
     if (index !== -1) {
@@ -50,7 +47,6 @@ export const useAccountsStore = defineStore('accounts', () => {
     }
   }
 
-  // Валидация записи
   const validateAccount = (account: Account) => {
     account.loginError = !account.login.trim()
 
@@ -64,26 +60,22 @@ export const useAccountsStore = defineStore('accounts', () => {
     return !account.loginError && !account.passwordError
   }
 
-  // Преобразование меток из строки в массив объектов
-  const parseMetka = (metkaText: string): Tag[] => {
-    return metkaText
+  const parseMetka = (markText: string): Tag[] => {
+    return markText
       .split(';')
       .map(text => text.trim())
       .filter(text => text.length > 0)
       .map(text => ({ text }))
   }
 
-  // Преобразование меток из массива объектов в строку
   const stringifyMetka = (metka: Tag[]): string => {
     return metka.map(tag => tag.text).join('; ')
   }
 
-  // Сохранение в выбранное хранилище
   const saveAccounts = () => {
     storage.save('accounts', accounts.value, storageType.value)
   }
 
-  // Загрузка из выбранного хранилища
   const loadAccounts = () => {
     const savedAccounts = storage.load('accounts', storageType.value)
     if (savedAccounts && Array.isArray(savedAccounts)) {
@@ -95,13 +87,11 @@ export const useAccountsStore = defineStore('accounts', () => {
     }
   }
 
-  // Смена типа хранилища
   const setStorageType = (type: StorageType) => {
     storageType.value = type
     loadAccounts()
   }
 
-  // Очистка всех данных
   const clearAll = () => {
     accounts.value = []
     storage.remove('accounts', storageType.value)
@@ -114,8 +104,8 @@ export const useAccountsStore = defineStore('accounts', () => {
     removeAccount,
     updateAccount,
     validateAccount,
-    parseMetka,
-    stringifyMetka,
+    parseMark: parseMetka,
+    stringifyMark: stringifyMetka,
     saveAccounts,
     loadAccounts,
     setStorageType,
